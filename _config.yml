@@ -122,3 +122,9 @@ comments:
   provider: "facebook"
   facebook:
     colorscheme: dark
+
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: "UA-71791811-1"
+    anonymize_ip: false # default
