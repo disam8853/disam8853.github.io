@@ -20,7 +20,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 repository: disam8853/disam8853.github.io
 # twitter_username: username
 github_username: disam8853
-minimal_mistakes_skin: dark
+minimal_mistakes_skin: default
 search: true
 search_full_content: true
 breadcrumbs: true
