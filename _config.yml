@@ -17,19 +17,23 @@ title: Sam's blog
 email: wang.sam33@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   All tech notes/blog here.
+repository: disam8853/disam8853.github.io
 # twitter_username: username
 github_username: disam8853
 minimal_mistakes_skin: dark
 search: true
+search_full_content: true
+breadcrumbs: true
 
 # Build settings
 markdown: kramdown
-remote_theme: mmistakes/minimal-mistakes
+remote_theme: mmistakes/minimal-mistakes@4.23.0
 # Outputting
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: Asia/Taipei # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+date_format: "%Y-%m-%d"
 
 include:
   - _pages
@@ -96,7 +100,9 @@ defaults:
       read_time: true
       comments: true
       share: true
+      show_date: true
       related: true
+      toc: true
   # _pages
   - scope:
       path: "_pages"
@@ -111,3 +117,8 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+comments:
+  provider: "facebook"
+  facebook:
+    colorscheme: dark
