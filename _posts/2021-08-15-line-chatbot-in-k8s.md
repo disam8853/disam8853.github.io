@@ -1,5 +1,6 @@
 ---
-title: 使用 kubernetes 打造具有會員註冊、身份驗證的多功能聊天機器人
+title: 使用 Kubernetes 打造具有會員註冊、身份驗證的多功能聊天機器人
+description: 為了開發越來越龐大的ChatBot系統，我們可以使用 K8S 作為部署的工具，他可以大大降低維護成本、增加服務擴展性
 date: 2021-08-15
 categories:
 - ChatBot
@@ -130,7 +131,7 @@ spec:
       port: 8080
 ```
 
-## 4.5. 定義 cronjob
+## 4.5. 定義 CronJob
 
 不要忘了我們還需要一個 cronjob 來幫助我們自動定期推播訊息給會員，因此我們一樣需要將程式碼打包成 image 後 push 到 docker hub，之後再設定 k8s 的 `cronjob.yaml`：
 
@@ -163,7 +164,7 @@ spec:
 
 以這個例子來說，`*/5 * * * *` 代表每 5 分鐘執行一次這個 cronjob，這個就跟 linux 的 `crontab` 一樣，如果不熟語法的人可以在 [crontab.guru](https://crontab.guru/) 中設定自己的行程表。
 
-## 4.6. apply
+## 4.6. Apply
 
 都設定好了之後只要在最上層 `kustmize.yaml` 的路徑執行：
 
