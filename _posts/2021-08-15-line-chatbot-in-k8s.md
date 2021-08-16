@@ -14,6 +14,8 @@ tags:
 各位在開發比較龐大的 chatbot 系統時是否會遇到一個問題？就是功能越來越多、程式碼越來越難管理、發生問題時很難找到問題點？這次我們要利用 Kubernetes (k8s) 來打造一個穩定、分散式、擴展性高的 chatbot 系統。
 
 > 本篇程式碼都會放在我的 [GitHub repo](https://github.com/disam8853/line-webhook-in-k8s)
+> 
+> 這此內容主要為我在 [COSCUP 2021](https://coscup.org/2021/zh-TW/session/ED7M9S) 中所分享的內容
 
 # 1. 目標
 
@@ -23,9 +25,9 @@ tags:
 - 使用 LINE Messaging API 處理聊天室身份驗證
 - 定期自動推播訊息給會員
 
-# 2. 設計系統/為服務
+# 2. 設計系統/微服務
 
-為了讓系統更簡潔、清楚、好管例，我們會把整套服務切成以下 5 個微服務：
+為了讓系統更簡潔、清楚、好管理，我們會把整套服務切成以下 5 個微服務：
 
 | 微服務名稱          | 工作                     |
 | ------------------- | ------------------------ |
@@ -49,7 +51,7 @@ Kubectl + Kustomize
 
 ### 3.2.1. docker-tuntap-osx
 
-如果是使用 Mac OS 的人，必須要安裝 [`docker-tuntap-osx`](https://github.com/AlmirKadric-Published/docker-tuntap-osx)，因為在 Mac OS 裡的 docker 中間是依靠一個 VM hyperkit 來作為橋樑，因此如果要在本機連到 container 內的 k8s cluster 的話就需要依照[教學](https://www.thehumblelab.com/kind-and-metallb-on-mac/)串接。
+如果是使用 Mac OS 的人，必須要安裝 [`docker-tuntap-osx`](https://github.com/AlmirKadric-Published/docker-tuntap-osx)，因為在 Mac OS 裡的 docker 中間是依靠一個 VM `Hyperkit` 來作為橋樑，因此如果要在本機連到 container 內的 k8s cluster 的話就需要依照[外部教學](https://www.thehumblelab.com/kind-and-metallb-on-mac/)串接。
 
 ## 3.3. Traefik
 
@@ -183,3 +185,9 @@ kustomize build . | k apply -f -
 Demo 影片可以參考我之前在 COSCUP 2021 所分享的影片 (15:15 處)：
 
 {% include video id="VpG7Nhe5nCg?start=915" provider="youtube" %}
+
+# 總結
+
+使用 k8s 來開發較為龐大的系統可以大大的減少維護成本，例如當有問題發生時，可以利用 microservice 的優點，快速的排查問題原因，提升 debug 效率。
+
+現在的 chatbot 基本上都沒有身份驗證的功能，因此需要開發者自己維護一個會員系統，會員系統又包含了註冊、登入等等服務，如此一來如果使用 k8s 來開發、部署，就可以讓他們完美的配合、溝通。不但之後可以再以這套基礎加上其他服務 (ex: 購物車)，更能處理大量請求的尖峰時段。
