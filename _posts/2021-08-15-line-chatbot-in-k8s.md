@@ -37,6 +37,18 @@ tags:
 | api-users           | 會員使用者 API           |
 | push-msg            | 定期推播訊息的 CronJob   |
 
+## 2.1. 設計思路
+
+1. 使用者會先透過 ingress 進入到 k8s cluster 內的會員註冊網站，並且經由後端傳送註冊會員的資料到 `Users API` 寫入資料庫中。
+
+2. 使用者就能透過 LINE App 發送訊息到 LINE，而 LINE 再發送 webhook event 一樣通過 ingress 給我們的 `webhook` 處理，`webhook` 再與 `Users API` 詢問是否該 LINE UID 為會員並做相對應的處理。
+
+3. 有個 CronJob (`push-msg`) 會自動定期推播訊息給會員。
+
+系統架構圖大概會長這樣：
+
+{% include figure image_path="/assets/images/2021-08-15/coscup.png" alt="Flow chart" caption="系統架構圖" %}
+
 # 3. 開發工具
 
 為了能夠在 local 先測試/開發，我們必須安裝/準備一些工具。
@@ -186,7 +198,7 @@ Demo 影片可以參考我之前在 COSCUP 2021 所分享的影片 (15:15 處)�
 
 {% include video id="VpG7Nhe5nCg?start=915" provider="youtube" %}
 
-# 總結
+# 6. 總結
 
 使用 k8s 來開發較為龐大的系統可以大大的減少維護成本，例如當有問題發生時，可以利用 microservice 的優點，快速的排查問題原因，提升 debug 效率。
 
